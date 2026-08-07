@@ -111,3 +111,9 @@ class AccountSummary(BaseModel):
     risks: List[RiskFlag]
 
     talking_points: List[str]
+    
+      
+# Retrieval Output
+class SearchResult(BaseModel):
+    document: KnowledgeBaseDocument
+    similarity_score: float
