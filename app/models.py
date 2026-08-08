@@ -98,17 +98,30 @@ class TriageResponse(BaseModel):
 
 
 # TASK 2 OUTPUT
+class AccountEvidence(BaseModel):
+    signal: str
+    signal_type: str
+    reason: str
+    supporting_quote: str
+    source: str
+    ticket_id: Optional[str] = None
+
+
+class AccountEvidenceResponse(BaseModel):
+    evidence: List[AccountEvidence]
+
+
 class RiskFlag(BaseModel):
     title: str
     reason: str
     supporting_quote: str
+    source: str
+    ticket_id: Optional[str] = None
 
 
 class AccountSummary(BaseModel):
     executive_summary: str
-
     risks: List[RiskFlag]
-
     talking_points: List[str]
     
       

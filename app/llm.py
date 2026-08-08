@@ -5,7 +5,11 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-from app.models import TriageResponse
+from app.models import (
+    AccountEvidenceResponse,
+    AccountSummary,
+    TriageResponse,
+)
 
 load_dotenv()
 
@@ -58,6 +62,54 @@ class GeminiClient:
         if not response.parsed:
             raise RuntimeError(
                 "Gemini returned an empty or invalid structured response."
+            )
+
+        return response.parsed
+
+    def generate_account_evidence(
+        self,
+        prompt: str,
+    ) -> AccountEvidenceResponse:
+        """
+        Extract structured account-health evidence.
+        """
+
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=AccountEvidenceResponse,
+            ),
+        )
+
+        if not response.parsed:
+            raise RuntimeError(
+                "Gemini returned an empty or invalid account evidence response."
+            )
+
+        return response.parsed
+
+    def generate_account_summary(
+        self,
+        prompt: str,
+    ) -> AccountSummary:
+        """
+        Generate the final TAM-facing account summary.
+        """
+
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=AccountSummary,
+            ),
+        )
+
+        if not response.parsed:
+            raise RuntimeError(
+                "Gemini returned an empty or invalid account summary response."
             )
 
         return response.parsed
