@@ -17,7 +17,6 @@ class GeminiClient:
         api_key: Optional[str] = None,
         model: Optional[str] = None,
     ):
-        #self.api_key = api_key or os.getenv("GEMINI_API_KEY") # TO BE DELETED NOW
         self.api_key = (
             api_key
             if api_key is not None
@@ -41,14 +40,11 @@ class GeminiClient:
 
         self.client = genai.Client(api_key=self.api_key)
 
-    #def generate_triage(
     def generate_triage(
         self,
         prompt: str,
     ) -> TriageResponse:
-        """
-        Generate and validate a structured triage response.
-        """
+        """Generate and validate a structured triage response."""
 
         response = self.client.models.generate_content(
             model=self.model,
