@@ -1,9 +1,8 @@
 fastapi
 uvicorn
-openai
 pydantic
 python-dotenv
 scikit-learn
 streamlit
 pytest
-openai
+google-genai

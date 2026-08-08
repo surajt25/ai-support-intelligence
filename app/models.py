@@ -1,7 +1,6 @@
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel
-
 
 # INPUT DATA MODELS
 class PrimaryContact(BaseModel):
@@ -86,7 +85,7 @@ class KnowledgeBaseDocument(BaseModel):
 class TriageResponse(BaseModel):
     product_area: str
     issue_category: str
-    urgency: str
+    urgency: Literal["P1", "P2", "P3", "P4"]
 
     reasoning: str
 
