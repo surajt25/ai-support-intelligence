@@ -3,7 +3,7 @@ from typing import List
 from app.models import SearchResult, Ticket
 
 # Prompt version for traceability and evaluation.
-PROMPT_VERSION = "triage-v1"
+PROMPT_VERSION = "triage-v2"
 
 
 ALLOWED_RESPONDER_TEAMS = [
@@ -63,6 +63,7 @@ Company: {ticket.company}
 
 Product: {ticket.product}
 Product Area Metadata: {ticket.product_area}
+Urgency Metadata: {ticket.urgency}
 Status: {ticket.status}
 
 
@@ -87,40 +88,62 @@ Choose exactly one of the following teams:
 
 INSTRUCTIONS
 ------------
+
 1. Determine the most appropriate product area based on the actual issue described in the ticket.
+
 2. Determine the issue category based on the actual customer problem, not merely on metadata supplied with the ticket.
-3. Determine the urgency as P1, P2, P3, or P4 based on the impact, severity, and evidence in the ticket.
-4. Treat the supplied Product Area Metadata as contextual information, not as a guaranteed correct classification.
+
+3. Preserve the urgency value supplied in the ticket metadata exactly.
+   Treat the supplied urgency as authoritative for the structured output.
+   Do not independently upgrade or downgrade the urgency based on your
+   own assessment of impact or severity.
+
+4. Treat the supplied Product Area Metadata as contextual information,
+   not as a guaranteed correct classification.
+
 5. Do not assume an issue is Billing merely because other ticket metadata suggests Billing.
+
 6. Explain the reasoning using evidence from the ticket and, when
    relevant, the retrieved knowledge-base context.
+
 7. Identify the most relevant knowledge-base document based on the actual
    issue and the document content. Do not select a document solely because
    it has the highest retrieval similarity score.
+
 8. Choose exactly one responder team from the allowed team list.
+
 9. Draft a professional first response to the customer.
+
 10. Do not invent product capabilities, policies, fixes, or facts
    that are not supported by the ticket or knowledge-base context.
+
 11. If the knowledge base does not contain a clear answer, say so
    in the reasoning rather than inventing one.
+
 12. The draft response must not claim or imply that a support agent or
     responder team has already investigated, reviewed logs, escalated the
     issue, contacted another team, routed the ticket, or taken any other
     action unless the ticket or knowledge-base context explicitly states
     that this action has already occurred.
+
 13. The draft response must not promise future actions, follow-ups,
     investigation results, resolution timelines, or contact from the
     support team unless such a commitment is explicitly supported by the
     ticket or knowledge-base context.
+
 14. Keep the draft response grounded in the evidence currently available.
     When additional investigation is needed, state what information or
     checks are relevant rather than claiming that those checks have
     already been performed.
+
 15. The draft response must distinguish between facts explicitly stated in
     the ticket and troubleshooting possibilities described in the knowledge
     base. Do not present a possible cause as the confirmed cause.
+
 16. Return ONLY valid JSON matching the requested output structure.
+
 17. The urgency value MUST be exactly one of: "P1", "P2", "P3", or "P4".
+
 18. The recommended_team value MUST be exactly one of the responder teams listed above.
 
 ## REQUIRED JSON STRUCTURE
