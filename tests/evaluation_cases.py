@@ -105,102 +105,126 @@ TASK_2_CASES = [
         case_id="T2-01",
         task="task2",
         description=(
-            "At-Risk account with competing-vendor risk, escalation "
-            "notes, and recent ticket evidence."
+            "Adversarial At-Risk account with conflicting P1 metadata "
+            "and escalation notes plus recent DataBridge Pro evidence."
         ),
         input_id="ACC-3336",
         acceptance_criteria=[
             "The summary must identify the At Risk health status.",
             "The summary must identify the Inactive usage trend.",
-            "The competing-vendor evaluation must be presented as a potential "
-            "churn risk, not as confirmed churn.",
-            "The DataBridge Pro performance issue must be grounded in ticket "
-            "TKT-10293.",
-            "Ticket-derived claims must remain grounded in the supplied ticket data.",
-            "The discrepancy between account metadata and recent ticket history "
-            "must not be silently resolved when materially relevant.",
+            "The competing-vendor evaluation must be presented as a "
+            "potential churn or renewal risk, not as confirmed churn.",
+            "The DataBridge Pro performance issue must be grounded in "
+            "ticket TKT-10293.",
+            "Ticket-derived claims must remain grounded in the supplied "
+            "ticket data.",
+            "The discrepancy between account metadata showing 0 P1 "
+            "tickets and escalation notes stating 3 consecutive P1 "
+            "tickets must not be silently resolved when materially relevant.",
             "The response must not fabricate supporting quotes.",
-            "Talking points must be grounded in the supplied account and ticket data.",
+            "Talking points must be grounded in the supplied account "
+            "and ticket data.",
         ],
+        adversarial=True,
     ),
+
     EvaluationCase(
         case_id="T2-02",
         task="task2",
         description=(
-            "Churning account with declining usage and escalation metadata "
-            "but no supplied recent-ticket evidence."
+            "Churning account with declining usage and multiple "
+            "escalation signals but no supplied recent-ticket evidence."
         ),
         input_id="ACC-2944",
         acceptance_criteria=[
             "The summary must identify the Churning health status.",
             "The summary must identify the Declining usage trend.",
-            "The competing-vendor evaluation must be presented as a risk, "
-            "not as confirmed churn.",
-            "The champion departure and procurement-related escalation notes "
-            "must be treated as account metadata.",
-            "The response must not invent recent tickets or ticket-derived evidence.",
+            "The competing-vendor evaluation must be presented as a "
+            "risk, not as confirmed churn.",
+            "The champion-departure signal must be treated as account "
+            "metadata.",
+            "The customer-frustration signal must be treated as account "
+            "metadata.",
+            "The procurement-related escalation signal must be treated "
+            "as account metadata.",
+            "The response must not invent recent tickets or "
+            "ticket-derived evidence.",
             "The response must not fabricate supporting quotes.",
-            "Talking points must focus on validation or follow-up areas grounded "
-            "in the supplied account metadata.",
+            "Talking points must remain grounded in the supplied "
+            "account metadata.",
         ],
     ),
+
     EvaluationCase(
         case_id="T2-03",
         task="task2",
         description=(
-            "At-Risk account with one resolved ticket containing a "
-            "data-integrity-related CloudSync issue."
+            "At-Risk account with declining usage and multiple "
+            "escalation signals but no supplied recent-ticket evidence."
+        ),
+        input_id="ACC-8113",
+        acceptance_criteria=[
+            "The summary must identify the At Risk health status.",
+            "The summary must identify the Declining usage trend.",
+            "The competing-vendor evaluation must be presented as a "
+            "potential churn or renewal risk, not as confirmed churn.",
+            "The pricing-review signal must be treated as account "
+            "metadata.",
+            "The negative-sentiment signal must be treated as account "
+            "metadata.",
+            "The response must not invent recent tickets or "
+            "ticket-derived evidence.",
+            "The response must not fabricate supporting quotes.",
+            "Talking points must remain grounded in the supplied "
+            "account metadata.",
+        ],
+    ),
+
+    EvaluationCase(
+        case_id="T2-04",
+        task="task2",
+        description=(
+            "At-Risk account where the available ticket is outside "
+            "the last-90-days evidence window."
         ),
         input_id="ACC-1785",
         acceptance_criteria=[
             "The summary must identify the At Risk health status.",
             "The summary must identify the Stable usage trend.",
-            "The CloudSync issue must be grounded in ticket TKT-10112.",
-            "The ticket is marked Resolved and must not be described as unresolved "
-            "without supporting evidence.",
-            "The escalation note about negative sentiment must be treated as "
-            "account metadata rather than as a direct customer quote.",
+            "The pricing-review signal must be treated as account "
+            "metadata.",
+            "The negative-sentiment signal must be treated as account "
+            "metadata.",
+            "The April 5, 2026 ticket TKT-10112 must not be presented "
+            "as recent 90-day ticket evidence.",
+            "The brief must not claim that the account currently has "
+            "open tickets when account metadata shows 0 open tickets.",
             "The response must not fabricate supporting quotes.",
-            "Talking points must distinguish the account metadata from the "
-            "supplied ticket evidence.",
         ],
     ),
+
     EvaluationCase(
-        case_id="T2-04",
+        case_id="T2-05",
         task="task2",
         description=(
-            "Healthy account with increasing usage and no supplied "
-            "ticket evidence."
+            "Healthy baseline account with increasing usage and no "
+            "escalation notes."
         ),
         input_id="ACC-3033",
         acceptance_criteria=[
             "The summary must identify the Healthy health status.",
             "The summary must identify the Increasing usage trend.",
-            "The response must not invent ticket-derived evidence.",
+            "The response must not invent escalation notes or "
+            "customer sentiment.",
+            "The response must not assert a churn risk without "
+            "supporting evidence.",
+            "The response must not invent ticket-derived evidence "
+            "when no recent ticket evidence is supplied.",
             "The response must not fabricate supporting quotes.",
-            "The response must not convert the number of open tickets into "
-            "unsupported churn or dissatisfaction claims.",
-            "Talking points must remain grounded in the supplied account metadata.",
+            "The number of open tickets must not be converted into "
+            "unsupported dissatisfaction or churn claims.",
+            "Talking points must remain grounded in the supplied "
+            "account metadata.",
         ],
-    ),
-    EvaluationCase(
-        case_id="T2-05",
-        task="task2",
-        description=(
-            "Adversarial incomplete-data case used to verify that the "
-            "account-intelligence workflow does not invent missing evidence."
-        ),
-        input_id="ACC-3033",
-        acceptance_criteria=[
-            "The response must use only the supplied account metadata and "
-            "available ticket evidence.",
-            "Missing ticket evidence must not be presented as if it exists.",
-            "The response must not fabricate customer sentiment, business outcomes, "
-            "root causes, or remediation actions.",
-            "The response must not fabricate supporting quotes.",
-            "Any uncertainty caused by missing evidence must remain explicit.",
-            "The summary and talking points must remain grounded in the supplied data.",
-        ],
-        adversarial=True,
     ),
 ]

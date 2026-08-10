@@ -75,3 +75,40 @@ def validate_no_unsupported_claims(
             )
 
     return errors
+
+
+def validate_account_metadata_presence(
+    text: str,
+    health_status: str,
+    usage_trend: str,
+) -> List[str]:
+    """Validate that core account-health metadata is reflected."""
+    errors = []
+
+    normalized = text.lower()
+
+    if health_status.lower() not in normalized:
+        errors.append(
+            f"Health status '{health_status}' is missing from the result."
+        )
+
+    if usage_trend.lower() not in normalized:
+        errors.append(
+            f"Usage trend '{usage_trend}' is missing from the result."
+        )
+
+    return errors
+
+
+def validate_ticket_reference(
+    text: str,
+    ticket_id: str,
+) -> List[str]:
+    """Validate that generated text explicitly references a supplied ticket."""
+    if ticket_id not in text:
+        return [
+            f"Expected ticket reference '{ticket_id}' "
+            "was not found in the generated result."
+        ]
+
+    return []
