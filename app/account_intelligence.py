@@ -295,6 +295,44 @@ class AccountIntelligenceService:
             evidence_response.evidence,
         )
 
-        return self.llm_client.generate_account_summary(
+        summary = self.llm_client.generate_account_summary(
             summary_prompt
         )
+
+        if not summary.risks:
+            retry_prompt = (
+                summary_prompt
+                + """
+
+        IMPORTANT CORRECTION:
+
+        The previous response contained an empty "risks" list.
+
+        Review the supplied account metadata and validated evidence again.
+        The "risks" list must contain at least one material account risk when
+        the supplied data contains a meaningful issue, escalation signal,
+        support issue, usage concern, renewal concern, or other account-health
+        signal.
+
+        For example, a non-zero open-ticket count may be included as a risk
+        when it is materially relevant to the account context.
+
+        Do not invent a risk merely to satisfy this requirement.
+        Every risk must still be grounded in the supplied account metadata or
+        validated ticket evidence.
+
+        Return the complete corrected JSON response only.
+        """
+            )
+
+            summary = self.llm_client.generate_account_summary(
+                retry_prompt
+            )
+
+        if not summary.risks:
+            raise ValueError(
+                "Gemini returned an account summary without any risks "
+                "after retry."
+            )
+
+        return summary
