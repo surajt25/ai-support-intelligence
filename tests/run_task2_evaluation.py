@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from app.account_intelligence import (
     AccountContextBuilder,
     AccountIntelligenceService,
@@ -7,6 +10,18 @@ from app.llm import GeminiClient
 
 from tests.evaluate_task2 import evaluate_task2_case
 from tests.evaluation_cases import TASK_2_CASES
+
+
+def calculate_quality_score(errors):
+    """Convert validation errors into a deterministic 0-1 score."""
+
+    if not errors:
+        return 1.0
+
+    return max(
+        0.0,
+        round(1.0 - (0.2 * len(errors)), 2),
+    )
 
 
 def main():
@@ -29,6 +44,16 @@ def main():
 
     passed = 0
     failed = 0
+    scores = []
+
+    report = {
+        "task": "task2",
+        "total": len(TASK_2_CASES),
+        "passed": 0,
+        "failed": 0,
+        "average_quality_score": 0.0,
+        "cases": [],
+    }
 
     for case in TASK_2_CASES:
         account = next(
@@ -123,6 +148,9 @@ def main():
                 result=result,
             )
 
+            quality_score = calculate_quality_score(errors)
+            scores.append(quality_score)
+
             if errors:
                 failed += 1
                 print("\nResult: FAIL")
@@ -134,12 +162,29 @@ def main():
                 passed += 1
                 print("\nResult: PASS")
 
+            print(f"Quality Score: {quality_score:.2f}")
+
+            report["cases"].append(
+                {
+                    "case_id": case.case_id,
+                    "input_id": case.input_id,
+                    "passed": not errors,
+                    "quality_score": quality_score,
+                    "errors": errors,
+                }
+            )
+
+
         except Exception as exc:
             failed += 1
+            scores.append(0.0)
+
             print("\nResult: FAIL")
             print(
                 f"- Evaluation execution error: {exc}"
             )
+            print("Quality Score: 0.00")
+
 
     print(
         "\n=== TASK 2 EVALUATION SUMMARY ==="
@@ -147,6 +192,35 @@ def main():
     print(f"Total: {len(TASK_2_CASES)}")
     print(f"Passed: {passed}")
     print(f"Failed: {failed}")
+
+    average_score = (
+        sum(scores) / len(scores)
+        if scores
+        else 0.0
+    )
+
+    print(f"Average Quality Score: {average_score:.2f}")
+
+    report["passed"] = passed
+    report["failed"] = failed
+    report["average_quality_score"] = round(
+        average_score,
+        2,
+    )
+
+    report_path = Path("eval_report_task2.json")
+
+    with report_path.open(
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            report,
+            file,
+            indent=2,
+        )
+
+    print(f"Evaluation report written to {report_path}")
 
 
 if __name__ == "__main__":
