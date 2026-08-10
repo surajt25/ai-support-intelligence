@@ -239,7 +239,7 @@ Run the automated test suite with:
 
     pytest -q
 
-The test suite currently contains 13 tests.
+The automated test suite currently contains 13 tests.
 
 A successful run should end with:
 
@@ -366,36 +366,40 @@ For the complete source-data schema, see:
     DATA_SCHEMA.md
 
 
-### Sample Task 1 Run
+## Running the Evaluations
 
-Command:
+### Task 1
+
+Run:
 
     python -m tests.run_task1_evaluation
 
 Example result:
 
-```text
-=== TASK 1 EVALUATION SUMMARY ===
-Total: 5
-Passed: 5
-Failed: 0
-Average Quality Score: 1.00
+    === TASK 1 EVALUATION SUMMARY ===
+    Total: 5
+    Passed: 5
+    Failed: 0
+    Average Quality Score: 1.00
 
-### Sample Task 2 Run
+### Task 2
 
-Command:
+Run:
 
     python -m tests.run_task2_evaluation
 
 Example result:
 
-```text
-=== TASK 2 EVALUATION SUMMARY ===
-Total: 5
-Passed: 5
-Failed: 0
-Average Quality Score: 1.00
+    === TASK 2 EVALUATION SUMMARY ===
+    Total: 5
+    Passed: 5
+    Failed: 0
+    Average Quality Score: 1.00
 
+The evaluation reports are written to:
+
+- `eval_report_task1.json`
+- `eval_report_task2.json`
 
 ## Design Note
 
