@@ -200,6 +200,8 @@ The complete field-level schema and example records are documented separately in
 
 The implementation also handles the documented case where a ticket references an account ID that does not have a corresponding account record.
 
+All supplied account, ticket, and knowledge-base data is synthetic and is used as provided for the assignment.
+
 ---
 
 ## Environment Setup
@@ -357,50 +359,6 @@ Prompt construction is kept under `app/prompts/`, while workflow orchestration r
 
 ---
 
-## Assignment Data
-
-All supplied account, ticket, and knowledge-base data is synthetic and is used as provided for the assignment.
-
-For the complete source-data schema, see:
-
-    DATA_SCHEMA.md
-
-
-## Running the Evaluations
-
-### Task 1
-
-Run:
-
-    python -m tests.run_task1_evaluation
-
-Example result:
-
-    === TASK 1 EVALUATION SUMMARY ===
-    Total: 5
-    Passed: 5
-    Failed: 0
-    Average Quality Score: 1.00
-
-### Task 2
-
-Run:
-
-    python -m tests.run_task2_evaluation
-
-Example result:
-
-    === TASK 2 EVALUATION SUMMARY ===
-    Total: 5
-    Passed: 5
-    Failed: 0
-    Average Quality Score: 1.00
-
-The evaluation reports are written to:
-
-- `eval_report_task1.json`
-- `eval_report_task2.json`
-
 ## Design Note
 
 ### 1. Failure Modes
@@ -431,10 +389,9 @@ The retrieval layer should therefore be moved to a persistent vector or search i
 
 The LLM layer would also require rate limiting, retries with backoff, request monitoring, and potentially asynchronous processing for batch account analysis. Evaluation should continue to run against a fixed test set so that changes to retrieval, prompts, models, or validation logic can be detected before deployment.
 
-
 ---
 
-## Bonus Features
+## Additional Features
 
 ### Streamlit UI
 
@@ -453,3 +410,4 @@ The prompts include explicit version identifiers for traceability and evaluation
 For example, the ticket triage prompt defines a `PROMPT_VERSION` value that is included in the generated prompt.
 
 This makes prompt changes easier to track when comparing evaluation results.
+
