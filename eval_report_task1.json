@@ -1,0 +1,44 @@
+{
+  "task": "task1",
+  "total": 5,
+  "passed": 5,
+  "failed": 0,
+  "average_quality_score": 1.0,
+  "cases": [
+    {
+      "case_id": "T1-01",
+      "input_id": "TKT-10293",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T1-02",
+      "input_id": "TKT-10050",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T1-03",
+      "input_id": "TKT-10180",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T1-04",
+      "input_id": "TKT-10398",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T1-05",
+      "input_id": "TKT-10002",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    }
+  ]
+}

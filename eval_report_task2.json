@@ -1,0 +1,44 @@
+{
+  "task": "task2",
+  "total": 5,
+  "passed": 5,
+  "failed": 0,
+  "average_quality_score": 1.0,
+  "cases": [
+    {
+      "case_id": "T2-01",
+      "input_id": "ACC-3336",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T2-02",
+      "input_id": "ACC-2944",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T2-03",
+      "input_id": "ACC-8113",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T2-04",
+      "input_id": "ACC-1785",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    },
+    {
+      "case_id": "T2-05",
+      "input_id": "ACC-3033",
+      "passed": true,
+      "quality_score": 1.0,
+      "errors": []
+    }
+  ]
+}
