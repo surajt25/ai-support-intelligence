@@ -3,7 +3,7 @@ from typing import List
 from app.models import SearchResult, Ticket
 
 # Prompt version for traceability and evaluation.
-PROMPT_VERSION = "triage-v2"
+PROMPT_VERSION = "triage-v1"
 
 
 ALLOWED_RESPONDER_TEAMS = [
