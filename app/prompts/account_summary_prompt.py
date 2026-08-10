@@ -136,12 +136,13 @@ Use it as the primary basis for the account intelligence summary.
    "a support ticket", or similar wording when the ticket ID is available.
 
 10. When referring to a ticket-derived issue, preserve the supplied
-    ticket status accurately. Do not describe a ticket marked Resolved
-    as currently unresolved or ongoing unless other supplied evidence
-    explicitly supports that conclusion.
+    ticket status accurately. A ticket marked Closed or Resolved may be
+    described as closed or resolved only when that status is explicitly
+    supplied. Do not infer that the underlying issue is currently fixed,
+    stable, or fully resolved beyond what the supplied data establishes.
 
-11. Do not claim that an issue is resolved unless the supplied data
-   explicitly establishes that it is resolved.
+11. Do not claim that an issue is resolved, fixed, stable, or no longer
+    occurring unless the supplied data explicitly establishes that fact.
 
 12. Do not claim that a support team has investigated, escalated,
    contacted the customer, or taken action unless the supplied data
@@ -193,11 +194,16 @@ Use it as the primary basis for the account intelligence summary.
     - Do not infer customer sentiment from account metadata unless sentiment
     is explicitly stated in the supplied data.
 
-24. Do not invent customer-engagement strategies, remediation plans,
+24. Talking points must not assume that a remediation action is required
+    or already agreed upon. Prefer questions about current status, impact,
+    causes, priorities, requirements, or validation over prescriptive
+    statements about what the customer or account team should do.
+
+25. Do not invent customer-engagement strategies, remediation plans,
     product fixes, commitments, or business outcomes that are not
     supported by the supplied data.
 
-25. Return ONLY valid JSON matching the required structure.
+26. Return ONLY valid JSON matching the required structure.
 
 ## REQUIRED JSON STRUCTURE
 
