@@ -204,6 +204,29 @@ All supplied account, ticket, and knowledge-base data is synthetic and is used a
 
 ---
 
+
+
+## Installation
+
+Clone the repository and move into the project directory:
+
+    git clone https://github.com/surajt25/ai-support-intelligence.git
+    cd ai-support-intelligence
+    
+Create a virtual environment:
+
+    python -m venv .venv
+
+Activate it on Windows:
+
+    .venv\Scripts\activate
+
+Install the required packages:
+
+    pip install -r requirements.txt
+
+---
+
 ## Environment Setup
 
 Create a `.env` file in the project root:
@@ -216,22 +239,6 @@ Do not commit the `.env` file.
 A template is provided in:
 
     .env.example
-
----
-
-## Installation
-
-Create a virtual environment:
-
-    python -m venv .venv
-
-Activate it on Windows:
-
-    .venv\Scripts\activate
-
-Install the required packages:
-
-    pip install -r requirements.txt
 
 ---
 
@@ -256,12 +263,29 @@ A successful run should end with:
 Run:
 
     python -m tests.run_task1_evaluation
+Output:
+    
+    === TASK 1 EVALUATION SUMMARY ===
+    Total: 5
+    Passed: 5
+    Failed: 0
+    Average Quality Score: 1.00
+    Evaluation report written to eval_report_task1.json
+
 
 ### Task 2
 
 Run:
 
     python -m tests.run_task2_evaluation
+Output:
+
+    === TASK 2 EVALUATION SUMMARY ===
+    Total: 5
+    Passed: 5
+    Failed: 0
+    Average Quality Score: 1.00
+    Evaluation report written to eval_report_task2.json
 
 The evaluation scripts run the defined evaluation cases and print the result and quality score for each case.
 
@@ -269,7 +293,6 @@ The evaluation reports are written to:
 
     eval_report_task1.json
     eval_report_task2.json
-
 ---
 
 ## Streamlit UI
